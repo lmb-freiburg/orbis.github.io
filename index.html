@@ -42,7 +42,7 @@
       flex-wrap: nowrap; /* Keeps videos in one line */
       overflow-x: auto;
       width: 100%;
-      max-width: 1600px;
+      max-width: 1400px;
       margin: 20px 0;
       justify-content: center;
     }
@@ -52,6 +52,24 @@
       flex-direction: column;
       align-items: center;
       min-width: 100px;
+      margin: 5px;
+      flex: 1 1 auto;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      gap: 20px; /* spacing between videos */
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .video-wrapper2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 100px;
+      max-width: 400px;
       margin: 5px;
       flex: 1 1 auto;
     }
@@ -69,7 +87,7 @@
       text-align: center;
     }
     section {
-    margin-bottom: 120px;
+    margin-bottom: 40px;
   }
   </style>
 </head>
@@ -145,10 +163,59 @@
   </div>
 </section>
 
+
+  <section class="hero">
+    <div class="full-width">
+      <div class="columns is-centered">
+
+      <div class="column">
+      <div class="content">
+
+      <div class="video-grid">
+        <div class="video-wrapper2">
+          <video muted autoplay playsinline loop controls>
+            <source src="videos/scenarios/turns_3.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-wrapper2">
+          <video muted autoplay playsinline loop controls>
+            <source src="videos/comparison/cut_0247npt_fm.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-wrapper2">
+          <video muted autoplay playsinline loop controls>
+            <source src="videos/comparison/cut_0000npt_fm.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-wrapper2">
+          <video muted autoplay playsinline loop controls>
+            <source src="videos/scenarios/sequence_0118.mp4" type="video/mp4">
+          </video>
+        </div>
+    </div>
+  </div>
+      </div>
+
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content">
+            <img src="./static/images/bubblechart.jpg" alt="Img 1" width="600">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+
+
+
+
+
 <section class="section">
-  <div class="container is-max-desktop">
+  <div class="full-width">
     <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
+    <div class="columns is-centered ">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
@@ -162,6 +229,17 @@
             design choices and more powerful than the model built on discrete tokens.  
           </p>
         </div>
+        <h2 class="title is-3">Method</h2>
+        <img src="./static/images/WM_framework.jpg" alt="Img 2" width="1000"> 
+        <p><b>Image Tokenizer:</b> The tokenizer provides two semantic and detail representation. These two representations are concatenated and fed into the image decoder and later to the world model.
+          During training the decoder receive continuous or discrete tokens randomly in the fine-tuning phase. 
+         </p><br>
+         <p>
+          <b>World Model:</b> To generate the next frame, the model receives either sampled Gaussian noise or fully
+          masked tokens as the target frame, along with encoded context frames. The model progressively denoise or unmask the target frame. This iterative sampling process is repeated to generate target frame.
+          </p><br>
+          <p>
+          <b>Inference Rollout:</b> During inference, the world model autoregressively generates next frame. This process repeats for the desired number of frames in the rollout sequence.</p>
       </div>
     </div>
     <!--/ Abstract. -->
@@ -170,9 +248,22 @@
   </div>
 </section>
 
+<!--
+<div style="display: flex; gap: 20px;">
+<img src="./static/images/teaser_img.jpg" alt="Img 2" width="800"> 
+<img src="./static/images/bubblechart.jpg" alt="Img 1" width="500">
+</div> -->
+
+
+
+
 <section class="hero">
+      <div class="columns is-centered has-text-centered"></div>
+  <h2 class="title is-3">Comparison to state-of-the-art</h2>
   <div class="full-width">
+     
     <div class="video-row">
+             
       <div class="video-wrapper">
       <p>Est. trajectories</p>
       <video muted playsinline loop controls class="sync-video">
@@ -240,6 +331,7 @@
       Comparison with the state-of-the-art: Long-horizon prediction and estimated ego-vehicle trajectory.
     </h2>
   </div>
+</div>
 </section>
 
 
