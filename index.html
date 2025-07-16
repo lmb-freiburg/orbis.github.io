@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Orbis: Overcoming Challenges of Long-Horizon Prediction in Driving World Models. This work presents a world model for autonomous driving that excels in long-horizon generation and generalization to challenging scenarios, achieving state-of-the-art performance with simple design choices.">
+  <meta name="keywords" content="World Models, Long-Horizon Prediction, Autonomous Driving">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orbis</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/Vision_Logo.jpg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    
+    .video-row {
+      display: flex;
+      flex-wrap: nowrap; /* Keeps videos in one line */
+      overflow-x: auto;
+      width: 100%;
+      max-width: 1600px;
+      margin: 20px 0;
+      justify-content: center;
+    }
+
+    .video-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 100px;
+      margin: 5px;
+      flex: 1 1 auto;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: auto;
+    }
+
+    .video-caption {
+      color: white;
+      font-family: sans-serif;
+      font-size: 16px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    section {
+    margin-bottom: 120px;
+  }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Orbis: Overcoming Challenges of Long-Horizon Prediction in Driving World Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://lmb.informatik.uni-freiburg.de/people/mousakha/">Arian Mousakhan</a></sup>&nbsp;&nbsp;&nbsp;</span>
+            <span class="author-block">
+              <a href="https://lmb.informatik.uni-freiburg.de/people/mittal/">Sudhanshu Mittal</a></sup>&nbsp;&nbsp;&nbsp;</span>
+            <span class="author-block">
+              <a href="https://lmb.informatik.uni-freiburg.de/people/galessos/">Silvio Galesso</a></sup>&nbsp;&nbsp;&nbsp;
+            </span>
+            <span class="author-block">
+              <a href="https://lmb.informatik.uni-freiburg.de/people/faridk/">Karim Farid</a></sup>&nbsp;&nbsp;&nbsp;
+            </span>
+            <span class="author-block">
+              <a href="https://lmb.informatik.uni-freiburg.de/people/brox/index.html">Thomas Brox</a></sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"></sup>University of Freiburg, Germany</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- TODO: Add PDF link -->
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                  </a>
+              </span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Existing world models for autonomous driving struggle with long-horizon generation and generalization to challenging scenarios.
+            In this work, we develop a model using simple design choices, and without additional supervision or sensors, such as maps, depth, or multiple cameras.
+            We show that our model yields state-of-the-art performance, despite having only 469M parameters and being trained on 280h of video data.
+            It particularly stands out in difficult scenarios like turning maneuvers and urban traffic. We test whether discrete token models possibly
+            have advantages over continuous models based on flow matching. To this end, we set up a hybrid tokenizer that is compatible with both approaches
+            and allows for a side-by-side comparison. Our study concludes in favor of the continuous autoregressive model, which is less brittle on individual
+            design choices and more powerful than the model built on discrete tokens.  
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="hero">
+  <div class="full-width">
+    <div class="video-row">
+      <div class="video-wrapper">
+      <p>Est. trajectories</p>
+      <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0051npt_traj.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <p>Orbis (ours)</p>
+      <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0051npt_fm.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <p>GEM</p>
+        <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0051npt_gem.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <p>Vista</p>
+        <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0051npt_vista.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <p>Cosmos</p>
+        <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0051npt_cosmos.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="video-row">
+      <div class="video-wrapper">
+      <p>Est. trajectories</p>
+      <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0000npt_traj.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <p>Orbis (ours)</p>
+      <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0000npt_fm.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <p>GEM</p>
+        <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0000npt_gem.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <p>Vista</p>
+        <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0000npt_vista.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <p>Cosmos</p>
+        <video muted playsinline loop controls class="sync-video">
+          <source src="videos/comparison/cut_0000npt_cosmos.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <h2 class="subtitle has-text-centered">
+      Comparison with the state-of-the-art: Long-horizon prediction and estimated ego-vehicle trajectory.
+    </h2>
+  </div>
+</section>
+
+
+
+
+  <section class="hero">
+    <h2 class="title is-3">Turning Scenes</h2>
+    <div class="video-row">
+      <div class="video-wrapper">
+      <video muted playsinline loop controls class="sync-video">
+          <source src="videos/scenarios/turns_0_110npt.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <video muted playsinline loop controls class="sync-video">
+          <source src="videos/scenarios/turns_1_123npt.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+        <video muted playsinline loop controls class="sync-video">
+          <source src="videos/scenarios/turns_2_038bdd.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+ <section class="hero">
+    <h2 class="title is-3">Urban Driving</h2>
+    <div class="video-row">
+      <div class="video-wrapper">
+      <video muted playsinline loop controls class="sync-video">
+          <source src="videos/scenarios/urban_93.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+      <video muted playsinline loop controls class="sync-video">
+          <source src="videos/scenarios/urban_0148.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+        <video muted playsinline loop controls class="sync-video">
+          <source src="videos/scenarios/urban_0_000.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero">
+  <h2 class="title is-3">Diverse Generation</h2>
+  <div class="video-row">
+    <div class="video-wrapper">
+    <video muted playsinline loop controls class="sync-video">
+        <source src="videos/scenarios/diverse_0_1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-wrapper">
+    <video muted playsinline loop controls class="sync-video">
+        <source src="videos/scenarios/diverse_0_2.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-wrapper">
+      <video muted playsinline loop controls class="sync-video">
+        <source src="videos/scenarios/diverse_0_3.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-wrapper">
+      <video muted playsinline loop controls class="sync-video">
+        <source src="videos/scenarios/diverse_0_4.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+<div class="video-row">
+  <div class="video-wrapper">
+  <video muted playsinline loop controls class="sync-video">
+      <source src="videos/scenarios/diverse_1_0.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="video-wrapper">
+  <video muted playsinline loop controls class="sync-video">
+      <source src="videos/scenarios/diverse_1_1.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="video-wrapper">
+    <video muted playsinline loop controls class="sync-video">
+      <source src="videos/scenarios/diverse_1_2.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="video-wrapper">
+    <video muted playsinline loop controls class="sync-video">
+      <source src="videos/scenarios/diverse_1_3.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+</div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{orbis2025,
+  author    = {Mousakhan, Arian and Mittal, Sudhanshu and Galesso, Silvio and Farid, Karim and Brox, Thomas},
+  title     = {Orbis: Overcoming Challenges of Long-Horizon Prediction in Driving World Models},
+  journal   = {},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+    <div class="container is-max-desktop">
+        <div class="content">
+          <p>
+            This webpage template is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+            under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
+          </p>
+      </div>
+  </div>
+</footer>
+
+</body>
+</html>
