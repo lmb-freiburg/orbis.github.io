@@ -1,6 +1,6 @@
 # Orbis
 
-This is the repository that contains source code for the [Orbis website](https://lmb-freiburg.github.io/orbis).
+This is the repository that contains source code for the [Orbis website](https://lmb-freiburg.github.io/orbis.github.io).
 
 If you find Orbis useful for your work please cite:
 ```
