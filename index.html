@@ -95,6 +95,18 @@
     box-sizing: border-box;
     }
 
+    .paper-accepted {
+  display: block;        /* ensures it sits on its own line */
+  margin-top: 1rem;      /* space above */
+  font-size: 1.5rem;       /* bigger font */
+  font-weight: bold;     /* bold text */
+  color: #000;           /* text color */
+  background: #fafaaf;   /* yellow highlight */
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  text-align: center;    /* center under the buttons */
+}
+
     section {
     margin-bottom: 40px;
   }
@@ -163,6 +175,8 @@
                   <span>Code (coming soon)</span>
                   </a>
               </span>
+              <!-- Highlight badge -->
+              <span class="paper-accepted">Paper Accepted at NeurIPS 2025</span>
                   </a>
             </div>
 
@@ -485,7 +499,7 @@
     <pre><code>@article{orbis2025,
   author    = {Mousakhan, Arian and Mittal, Sudhanshu and Galesso, Silvio and Farid, Karim and Brox, Thomas},
   title     = {Orbis: Overcoming Challenges of Long-Horizon Prediction in Driving World Models},
-  journal   = {arXiv preprint arXiv:2507.13162},
+  journal   = {Advances in Neural Information Processing Systems (NeurIPS)},
   year      = {2025},
 }</code></pre>
   </div>

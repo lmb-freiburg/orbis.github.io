@@ -7,7 +7,7 @@ If you find Orbis useful for your work please cite:
 @article{orbis2025
   author    = {Mousakhan, Arian and Mittal, Sudhanshu and Galesso, Silvio and Farid, Karim and Brox, Thomas},
   title     = {Orbis: Overcoming Challenges of Long-Horizon Prediction in Driving World Models},
-  journal   = {},
+  journal   = {Advances in Neural Information Processing Systems (NeurIPS)},
   year      = {2025},
 }
 ```
