@@ -96,8 +96,10 @@
     }
 
     .paper-accepted {
-  display: block;        /* ensures it sits on its own line */
-  margin-top: 1rem;      /* space above */
+  display: block;        /* ensures it sits on its own line */     /* space above */
+  margin: 1rem auto;     /* auto left/right centers it */
+  width: fit-content;    /* shrinks to content */
+  max-width: 300px;      /* ← or choose your desired width */
   font-size: 1.5rem;       /* bigger font */
   font-weight: bold;     /* bold text */
   color: #000;           /* text color */
